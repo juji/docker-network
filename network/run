@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# start and scale
+docker-compose up -d
+docker-compose scale nodejs=5
+
+# nginx resolves domain at config loading
+# so, reload
+docker exec network_nginx_1 nginx -s reload
+
+
+while [[ true ]]; do curl http://localhost; done
